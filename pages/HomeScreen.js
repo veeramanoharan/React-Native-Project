@@ -17,13 +17,14 @@ function HomeScreen(){
     function confirmButtonHandler(){
         const enteredNumber = parseInt(inputValue);
 
-        if(isNaN(enteredNumber) || enteredNumber <= 0 || enteredNumber > 99){
+        if(isNaN(enteredNumber) || enteredNumber <= 0 || enteredNumber > 99) {
             Alert.alert('Invalid Number!',
             'Ensure that the provided number falls within the range of 0 to 99',
-            [{text:"OK", style:'destructive',onPress:{resetButtonHandler}}]
-            )
+            [{text:"OK", style:'destructive',onPress: resetButtonHandler}]
+            );
+            return;
         }
-        console.log("Valid Number...!");
+        console.log("Valid Number...!",enteredNumber);
     }
 
 return(
@@ -32,7 +33,7 @@ return(
          maxLength={2}
          keyboardType='number-pad'
          value={inputValue}
-         onChange={InputHandler}
+         onChangeText={InputHandler}
          />
          <View style={styles.buttonsContainer}>
             <View style={styles.buttonContainer}>
