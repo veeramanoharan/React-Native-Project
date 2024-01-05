@@ -1,5 +1,5 @@
 import { View,Text,StyleSheet,Pressable } from "react-native";
-
+import Colors from "../constants/colors";
 
 function CustomButton({children,onButtonPress}){
 
@@ -7,7 +7,7 @@ function CustomButton({children,onButtonPress}){
         <View style={style.buttonContainer}>
             <Pressable style={({pressed}) => pressed ? 
                 [style.buttonColor, style.iosButton] : style.buttonColor}
-             onPress={onButtonPress} android_ripple={{color:'#ddc42f'}}>
+             onPress={onButtonPress} android_ripple={{color:'#FFB6B1'}}>
                  <Text style={style.buttonText}>{children}</Text>
             </Pressable>
         </View>
@@ -20,10 +20,12 @@ export default CustomButton;
 const style = StyleSheet.create({
     buttonText:{
         color:'white',
-        textAlign:'center'
+        textAlign:'center',
+        fontSize:16,
+        fontWeight:'600'
     },
     buttonColor:{
-        backgroundColor:'#ddb52f',
+        backgroundColor: Colors.LGradient2,
         paddingVertical:10,
         paddingHorizontal:20,
         elevation:2,
