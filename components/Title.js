@@ -1,5 +1,5 @@
 import {Text,StyleSheet } from "react-native";
-import Colors from "../constants/colors";
+import Colors from "../constants/Colors";
 
 function Title({children}){
 
@@ -14,12 +14,16 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontFamily:'BoldItalicFont',
         color: 'white',
-        backgroundColor:Colors.LGradient2,
+        backgroundColor:Colors.LGRADIENT2,
         textAlign:'center',
+        overflow:'hidden',
         borderWidth:1,
         borderRadius:5,
-        borderColor: Colors.LGradient1,
-        padding:20
+        borderColor: Colors.LGRADIENT1,
+        padding:12,
+        maxWidth:'80%',
+        width:300,
+        
         
     }
 });

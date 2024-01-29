@@ -1,18 +1,18 @@
 import { View,Text,StyleSheet } from "react-native";
-import Colors from "../constants/colors";
+import Colors from "../constants/Colors";
 
-function GuessLogItems({oppGuess,roundNum}){
+function GuessLogItems({opponent_guess,round_number}){
 
     return(
-        <View style={styles.listItem}>
-            <Text style={styles.itemText}>#{roundNum}</Text>
-            <Text style={styles.itemText}>Opponenet's Guess: {oppGuess}</Text>
+        <View style={styles.list_item}>
+            <Text style={styles.item_text}>#{round_number}</Text>
+            <Text style={styles.item_text}>Opponenet's Guess: {opponent_guess}</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    listItem:{
+    list_item:{
         borderColor: Colors.primary,
         borderWidth: 2,
         borderRadius: 20,
@@ -26,10 +26,11 @@ const styles = StyleSheet.create({
         shadowOffset:{width:0,height:0},
         shadowOpacity: 0.25,
         shadowRadius:3,
-        backgroundColor:Colors.LGradient1
+        backgroundColor:Colors.LGRADIENT1
     },
-    itemText:{
-        fontFamily:'BoldFont'
+    item_text:{
+        fontFamily:'BoldFont',
+        
     }
 });
 

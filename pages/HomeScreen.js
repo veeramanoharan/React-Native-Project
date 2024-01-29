@@ -1,15 +1,15 @@
 import { TextInput,View,StyleSheet,Alert } from "react-native";
-import CustomButton from "../components/customButton";
+import CustomButton from "../components/CustomButton";
 import { useState } from "react";
-import Colors from "../constants/colors";
+import Colors from "../constants/Colors";
 import Title from "../components/Title";
-import Card from "../components/card";
-import InstructionName from "../components/instName";
+import Card from "../components/Card";
+import InstructionName from "../components/InstructionName";
 
-function HomeScreen({onConfirm}){
+function HomeScreen({on_confirm}){
     const [inputValue,setInputValue] = useState('');
 
-    function InputHandler(inputText){
+    function inputHandler(inputText){
         setInputValue(inputText);
     }
 
@@ -27,25 +27,25 @@ function HomeScreen({onConfirm}){
             );
             return;
         }
-        onConfirm(enteredNumber);
+        on_confirm(enteredNumber);
     }
 
 return(
-    <View style={styles.rootContainer}>
+    <View style={styles.root_container}>
         <Title>Guess the Number</Title>
             <Card>
-                <InstructionName instName={"Enter a Number"}/>
-                <TextInput style={styles.inputField}
+                <InstructionName instruction_name={"Enter a Number"}/>
+                <TextInput style={styles.input_field}
                 maxLength={2}
                 keyboardType='number-pad'
                 value={inputValue}
-                onChangeText={InputHandler}
+                onChangeText={inputHandler}
                 />
-                <View style={styles.buttonsContainer}>
-                    <View style={styles.buttonContainer}>
+                <View style={styles.buttons_container}>
+                    <View style={styles.button_container}>
                     <CustomButton onButtonPress={resetButtonHandler}>Reset</CustomButton>
                     </View>
-                    <View  style={styles.buttonContainer}>
+                    <View  style={styles.button_container}>
                     <CustomButton onButtonPress={confirmButtonHandler}>Confirm</CustomButton>
                     </View>            
                 </View>
@@ -57,36 +57,36 @@ export default HomeScreen;
 
 const styles = StyleSheet.create({
 
-    rootContainer: {
+    root_container: {
         flex:1,
         marginTop:100,
         alignItems:'center'
     },
-    inputContainer: {
+    input_container: {
         // flex: 1,
-        marginTop: 40,
+        margin_op: 40,
         marginHorizontal: 10,
         borderRadius: 10,
         padding: 16,
-        backgroundColor:Colors.LGradient1,
+        backgroundColor:Colors.LGRADIENT1,
         justifyContent:'center',
         alignItems:'center'
     },
-    inputField:{
+    input_field:{
         height:50,
         fontSize: 24,
         width:50,
-        borderBottomColor:Colors.LGradient2,
+        borderBottomColor:Colors.LGRADIENT2,
         borderBottomWidth:2,
         color:'white',
         marginVertical: 5,
         fontWeight:'bold',
         textAlign:'center'
     },
-    buttonsContainer:{
+    buttons_container:{
         flexDirection:"row"
     },
-    buttonContainer:{
+    button_container:{
         flex:1
     }
 });

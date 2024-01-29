@@ -3,14 +3,14 @@ import { StyleSheet,ImageBackground,SafeAreaView } from 'react-native';
 import HomeScreen from './pages/HomeScreen';
 import { useState } from 'react';
 import GameScreen from './pages/GameScreen';
-import Colors from './constants/colors';
-import GameEnd from './pages/EndScreen';
+import Colors from './constants/Colors';
+import GameEndScreen from './pages/GameEndScreen';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 
 export default function App() {
   const [userInput,setUserInput] = useState();
-  const [gameOver,setGameOver] = useState(true);
+  const [isGameOver,setIsGameOver] = useState(true);
   const [guessCount, setGuessCount] = useState(0);
 
   const [fontsLoaded]= useFonts({
@@ -25,12 +25,12 @@ export default function App() {
 
   function InputHandler(InputNumbers){
     setUserInput(InputNumbers);
-    setGameOver(false);
+    setIsGameOver(false);
   }
-  let screen =  <HomeScreen onConfirm={InputHandler}/>
+  let screen =  <HomeScreen on_confirm={InputHandler}/>
 
   function gameOverHandler(noOfGuess){
-    setGameOver(true);
+    setIsGameOver(true);
     setGuessCount(noOfGuess);
   }
 
@@ -40,23 +40,23 @@ export default function App() {
   }
 
   if(userInput){
-    screen = <GameScreen userInput={userInput} onCorrectGuess={gameOverHandler}/>
+    screen = <GameScreen user_input={userInput} on_correctguess={gameOverHandler}/>
   }
 
-  if(gameOver && userInput){
-    screen = <GameEnd userNumber={userInput} guessCount={guessCount} onRestart={startNewGameHandler}/>
+  if(isGameOver && userInput){
+    screen = <GameEndScreen user_number={userInput} guess_count={guessCount} on_restart={startNewGameHandler}/>
   }
 
 
 
   return (
-    <LinearGradient colors={[Colors.LGradient1, Colors.LGradient2]} style={styles.homeScreen}>
+    <LinearGradient colors={[Colors.LGRADIENT1, Colors.LGRADIENT2]} style={styles.home_screen}>
       <ImageBackground source={require('./assets/images/cubes.jpg')}
        resizeMode={'cover'} 
-       style={styles.homeScreen}
-       imageStyle={styles.bgImage}
+       style={styles.home_screen}
+       imageStyle={styles.bg_image}
        >
-        <SafeAreaView style={styles.homeScreen}>
+        <SafeAreaView style={styles.home_screen}>
           {screen}
         </SafeAreaView>
       </ImageBackground>
@@ -65,10 +65,10 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  homeScreen:{
+  home_screen:{
   flex: 1,
   },
-  bgImage:{
+  bg_image:{
     opacity:0.30
   }
 });

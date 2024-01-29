@@ -1,12 +1,12 @@
 import { View,StyleSheet,Alert,Text, FlatList } from "react-native";
 import Title from "../components/Title";
 import { useState,useEffect } from "react";
-import NumberContainer from "../components/numberContainer";
-import CustomButton from "../components/customButton";
-import Card from "../components/card";
-import InstructionName from "../components/instName";
+import NumberContainer from "../components/NumberContainer";
+import CustomButton from "../components/CustomButton";
+import Card from "../components/Card";
+import InstructionName from "../components/InstructionName";
 import {Ionicons} from '@expo/vector-icons'
-import GuessLogItems from "../components/guessLogItems";
+import GuessLogItems from "../components/GuessLogItems";
 
 function generateRandomNumber(min,max,exclude){
     const randomNum = Math.floor(Math.random() * (max-min)) + min;
@@ -19,27 +19,27 @@ function generateRandomNumber(min,max,exclude){
     }
 }
 
-let minLimit = 1;
-let maxLimit = 100;
+let MINLIMIT = 1;
+let MAXLIMIT = 100;
 
-function GameScreen({userInput,onCorrectGuess}){
-    const initialGuess = generateRandomNumber(1,100,userInput);
+function GameScreen({user_input,on_correctguess}){
+    const initialGuess = generateRandomNumber(1,100,user_input);
     const [currentGuess,setCurrentGuess] = useState(initialGuess);
     const [guessCount, setGuessCount] = useState([initialGuess])
 
     useEffect(() => {
-        if(currentGuess === userInput){
-            onCorrectGuess(guessCount.length);
+        if(currentGuess === user_input){
+            on_correctguess(guessCount.length);
         }
-    },[currentGuess,userInput,onCorrectGuess])
+    },[currentGuess,user_input,on_correctguess])
 
     useEffect(() => {
-        minLimit = 1;
-        maxLimit = 100;
+        MAXLIMIT = 1;
+        MAXLIMIT = 100;
     },[])
     
     function guessHandler(size){
-        if((size === 'smaller' && currentGuess < userInput) || (size === 'greater' && currentGuess > userInput))
+        if((size === 'smaller' && currentGuess < user_input) || (size === 'greater' && currentGuess > user_input))
         {
             Alert.alert("Don't lie 🤥","Please play fairly...",[
                 {text:'Sorry!',style:'cancel'}
@@ -47,13 +47,13 @@ function GameScreen({userInput,onCorrectGuess}){
             return;
         }
         if(size === 'smaller'){
-            maxLimit = currentGuess;
+            MAXLIMIT = currentGuess;
         }
         else{
-            minLimit = currentGuess + 1;
+            MINLIMIT = currentGuess + 1;
         }
-        console.log(minLimit,maxLimit);
-        const newRandomNum = generateRandomNumber(minLimit,maxLimit,currentGuess);
+        console.log(MINLIMIT, MAXLIMIT);
+        const newRandomNum = generateRandomNumber(MINLIMIT,MAXLIMIT,currentGuess);
         setCurrentGuess(newRandomNum);
         setGuessCount(prevGuessCount => [newRandomNum,  ...prevGuessCount]);
     }
@@ -64,30 +64,30 @@ function GameScreen({userInput,onCorrectGuess}){
     
 return(
     <View style={styles.screen}>
-        <Title>Oppnent's Guess</Title>
+        <Title>Opponent's Guess</Title>
         <NumberContainer>{currentGuess}</NumberContainer>
         <Card>
-            <InstructionName  instName={"Greater or Smaller?"}/>
-            <View style={styles.buttonsContainer}>
-                <View style={styles.buttonContainer}>
+            <InstructionName  instruction_name={"Greater or Smaller?"}/>
+            <View style={styles.buttons_container}>
+                <View style={styles.button_container}>
                     <CustomButton onButtonPress={guessHandler.bind(this,'smaller')}>
                     <Ionicons name='remove-sharp' size={24}/>
                     </CustomButton>
                 </View>
-                <View style={styles.buttonContainer}>
+                <View style={styles.button_container}>
                     <CustomButton onButtonPress={guessHandler.bind(this,'greater')}>
                         <Ionicons name='add-sharp' size={24}/>
                     </CustomButton>
                 </View>
             </View>
         </Card>
-        <View style={styles.guessListContainer}>
+        <View style={styles.guess_list_container}>
             {/* {guessCount.map(guessCount => <Text key={guessCount}>{guessCount}</Text>)} */}
             <FlatList data={guessCount} renderItem={
                 (itemData) => (
                 <GuessLogItems 
-                    roundNum={guessCountLength - itemData.index}
-                    oppGuess={itemData.item} />
+                    round_number={guessCountLength - itemData.index}
+                    opponent_guess={itemData.item} />
                     )}
                     keyExtractor={(item) => item }/>
         </View>
@@ -100,16 +100,17 @@ export default GameScreen;
 const styles = StyleSheet.create({
     screen:{
         flex: 1,
-        padding: 50
+        padding: 50,
+        alignItems:'center'
     },
-    buttonsContainer:{
+    buttons_container:{
         flexDirection:'row',
         marginTop:30
     },
-    buttonContainer:{
+    button_container:{
         flex:1,
     },
-    guessListContainer:{
+    guess_list_container:{
         flex: 1,
         padding: 16
     }
